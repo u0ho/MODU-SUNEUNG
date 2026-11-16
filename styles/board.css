@@ -208,7 +208,8 @@ button, input, textarea { touch-action: manipulation; }
   z-index: 30;
 }
 .menu-dropdown[hidden] { display: none; }
-.menu-item {
+.menu-item,
+.menu-help {
   width: 100%;
   border: 0;
   border-radius: 11px;
@@ -226,8 +227,23 @@ button, input, textarea { touch-action: manipulation; }
   cursor: pointer;
   transition: background-color 0.12s ease, color 0.12s ease;
 }
-.menu-item:hover {
+.menu-item:hover,
+.menu-help:hover {
   background: rgba(77, 76, 78, 0.08);
+}
+/* 페이지 전환 항목과 구분되는 '사용법 보기' (구분선 + 보조 색) */
+.menu-help {
+  position: relative;
+  margin-top: 4px;
+  color: var(--gray);
+}
+.menu-help::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 8px;
+  right: 8px;
+  border-top: 1px solid var(--line);
 }
 .menu-item[aria-checked="true"] {
   background: var(--gray);
@@ -773,6 +789,188 @@ mark.label::before {
 }
 .btn.primary { border-color: var(--gray); background: var(--gray); color: var(--white); }
 .btn:disabled { opacity: 0.5; cursor: default; }
+
+/* 첫 방문 사용법 안내 팝업 (바깥: 웹 레드 프레임 / 안쪽: 매우 연한 회색 명판 + 네 모서리 나사 스타일) */
+.guide-dialog {
+  --guide-light-gray: #F3F4F6;
+  width: min(580px, calc(100% - 28px));
+  max-height: calc(100dvh - 28px);
+  padding: 0;
+  border: 2px solid #E04B35;
+  border-radius: 14px;
+  background-color: var(--pastel-red);
+  background-image: var(--paper);
+  background-size: 128px 128px;
+  box-shadow: 0 18px 44px rgba(17, 17, 17, 0.28);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.guide-frame {
+  padding: 20px 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.guide-plaque {
+  position: relative;
+  width: 100%;
+  padding: 30px 32px 24px;
+  border-radius: 6px;
+  background-color: var(--guide-light-gray);
+  background-image: var(--paper);
+  background-size: 128px 128px;
+  color: var(--ink);
+  box-shadow: 0 6px 18px rgba(17, 17, 17, 0.16), inset 0 0 0 1px rgba(17, 17, 17, 0.08);
+}
+.guide-screw {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #D5D8DF;
+  border: 1px solid #AEB4BF;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+.guide-screw::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 1.6px;
+  background: var(--ink);
+  transform: translate(-50%, -50%) rotate(-38deg);
+  border-radius: 1px;
+}
+.guide-screw.tl { top: 12px; left: 12px; }
+.guide-screw.tr { top: 12px; right: 12px; }
+.guide-screw.bl { bottom: 12px; left: 12px; }
+.guide-screw.br { bottom: 12px; right: 12px; }
+
+.guide-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+.guide-brand {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+}
+.guide-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--gray);
+}
+.guide-lead {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--gray);
+  word-break: keep-all;
+}
+.guide-divider {
+  border: 0;
+  border-top: 1px solid #D1D5DB;
+  margin: 16px 0;
+}
+.guide-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.guide-list li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 6px;
+}
+.guide-num {
+  font-size: 13.5px;
+  font-weight: 800;
+  line-height: 1.6;
+  color: #E04B35;
+}
+.guide-list p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  word-break: keep-all;
+}
+.guide-list strong {
+  font-weight: 800;
+  color: var(--ink);
+}
+.guide-plaque em {
+  font-style: normal;
+  font-weight: 700;
+  color: #D1433B;
+}
+.guide-meta {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px dashed #CBD5E1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gray);
+}
+.guide-footer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.guide-today-btn {
+  padding: 7px 15px;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: rgba(243, 244, 246, 0.92);
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.12s ease, transform 0.1s ease;
+}
+.guide-today-btn:hover {
+  background: var(--white);
+}
+.guide-today-btn:active {
+  transform: translateY(1px);
+}
+.guide-close-btn {
+  padding: 8px 22px;
+  border: 1.5px solid var(--white);
+  border-radius: 999px;
+  background: var(--guide-light-gray);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(17, 17, 17, 0.15);
+  transition: transform 0.1s ease, background-color 0.12s ease;
+}
+.guide-close-btn:hover {
+  background: var(--white);
+}
+.guide-close-btn:active {
+  transform: translateY(1px);
+}
 
 /* ── 영역별 실시간 익명채팅방 & 모의 시험 타이머 페이지 ── */
 .board[hidden],
@@ -1519,6 +1717,35 @@ mark.label::before {
   .btn {
     min-height: 40px;
     padding: 8px 16px;
+  }
+  .guide-dialog {
+    width: calc(100% - 20px);
+    max-height: 88dvh;
+    border-radius: 12px;
+  }
+  .guide-frame {
+    padding: 12px 12px 10px;
+    gap: 10px;
+  }
+  .guide-plaque {
+    padding: 24px 18px 18px;
+  }
+  .guide-brand { font-size: 19px; }
+  .guide-title { font-size: 13px; }
+  .guide-lead { font-size: 12px; }
+  .guide-divider { margin: 12px 0; }
+  .guide-list { gap: 9px; }
+  .guide-list p,
+  .guide-num { font-size: 12.5px; line-height: 1.52; }
+  .guide-meta {
+    margin-top: 14px;
+    padding-top: 10px;
+    font-size: 11.5px;
+  }
+  .guide-today-btn,
+  .guide-close-btn {
+    min-height: 38px;
+    font-size: 12.5px;
   }
 }
 

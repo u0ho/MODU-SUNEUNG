@@ -1023,3 +1023,34 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !menuDropdown.hidden) toggleMenu(false);
 });
+
+// ── 사용법 안내 팝업: 접속 시 자동 표시 ('오늘 하루 안 보기' 선택 시 당일 동안만 숨김) ──
+const GUIDE_HIDE_DATE_KEY = 'board:guideHideDate';
+const guideDialog = $('guideDialog');
+
+function getGuideTodayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
+
+function openGuide() {
+  if (!guideDialog.open) guideDialog.showModal();
+}
+
+guideDialog.addEventListener('click', (e) => { if (e.target === guideDialog) guideDialog.close(); });
+$('guideClose').addEventListener('click', () => guideDialog.close());
+$('guideHideToday').addEventListener('click', () => {
+  try { localStorage.setItem(GUIDE_HIDE_DATE_KEY, getGuideTodayKey()); } catch {}
+  guideDialog.close();
+});
+$('guideOpenBtn').addEventListener('click', () => {
+  toggleMenu(false);
+  openGuide();
+});
+
+let hideGuideToday = false;
+try {
+  localStorage.removeItem('board:guideSeen');
+  hideGuideToday = localStorage.getItem(GUIDE_HIDE_DATE_KEY) === getGuideTodayKey();
+} catch {}
+if (!hideGuideToday) openGuide();
