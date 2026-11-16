@@ -78,6 +78,7 @@
           <button type="button" class="menu-item" role="menuitemradio" data-page="board" aria-checked="true">모두의 응원 메세지</button>
           <button type="button" class="menu-item" role="menuitemradio" data-page="chat" aria-checked="false">실시간 채팅</button>
           <button type="button" class="menu-item" role="menuitemradio" data-page="timer" aria-checked="false">모의 타이머</button>
+          <button type="button" class="menu-help" id="guideOpenBtn" role="menuitem">사용법 보기</button>
         </div>
       </div>
     </div>
@@ -165,6 +166,63 @@
         <button type="submit" class="btn primary" id="deleteSubmit">삭제</button>
       </div>
     </form>
+  </dialog>
+
+  <!-- 첫 방문 사용법 안내: 한 번 닫으면 자동으로 다시 뜨지 않고, 메뉴의 '사용법 보기'로 다시 열 수 있음 -->
+  <dialog class="dialog guide-dialog" id="guideDialog" aria-labelledby="guideTitle">
+    <div class="guide-frame">
+      <div class="guide-plaque">
+        <span class="guide-screw tl" aria-hidden="true"></span>
+        <span class="guide-screw tr" aria-hidden="true"></span>
+        <span class="guide-screw bl" aria-hidden="true"></span>
+        <span class="guide-screw br" aria-hidden="true"></span>
+
+        <header class="guide-header">
+          <p class="guide-brand">MODU SUNEUNG</p>
+          <h2 class="guide-title" id="guideTitle">모두의 수능 · 응원 메시지 사용 설명서</h2>
+        </header>
+
+        <p class="guide-lead">
+          수험생 친구·선후배·가족에게 따뜻한 응원 한마디를 남겨 주세요!<br />
+          로그인 없이 누구나 응원을 남기고, 내게 온 응원을 모아 간직할 수 있어요.
+        </p>
+
+        <hr class="guide-divider" />
+
+        <ol class="guide-list">
+          <li>
+            <span class="guide-num">1.</span>
+            <p><strong>응원 남기기</strong> — 아래 입력창에 받는 사람 <em>이름을 넣어</em> 메시지를 쓰고, 삭제용 암호(4자 이상) 입력 후 <em>전송</em>을 눌러요. 왼쪽 동그라미로 카드 색상을 고를 수 있어요.</p>
+          </li>
+          <li>
+            <span class="guide-num">2.</span>
+            <p><strong>내게 온 응원 찾기</strong> — 상단 <em>이름:</em> 칸에 이름을 입력하면 그 이름이 들어간 응원만 모아서 보여 주고 이름에 형광펜 표시가 붙어요.</p>
+          </li>
+          <li>
+            <span class="guide-num">3.</span>
+            <p><strong>응원함 공유하기 &amp; 이미지로 저장하기</strong> — 이름 검색 후 <em>링크 복사</em>로 내 응원함 주소를 공유하거나, <em>캡처</em>를 눌러 원하는 카드를 골라 <em>선택 캡처</em> · <em>스토리 9:16</em> 이미지로 저장해요.</p>
+          </li>
+          <li>
+            <span class="guide-num">4.</span>
+            <p><strong>반응 · 정렬 · 크기</strong> — 카드를 눌러 👍 ❤️ 💪 🔥 🥹 공감을 남기고, <em>최신순 / 좋아요순</em> 정렬과 화면의 크기 조절 바로 글씨 크기를 조절해요.</p>
+          </li>
+          <li>
+            <span class="guide-num">5.</span>
+            <p><strong>내 메시지 지우기</strong> — 카드를 누른 뒤 모서리의 <em>×</em> 버튼을 눌러 작성 시 입력한 암호로 삭제해요. (암호는 다시 찾을 수 없으니 꼭 기억해 주세요)</p>
+          </li>
+        </ol>
+
+        <div class="guide-meta">
+          <span>+ 다시 보기 : 우측 상단 ☰ 메뉴 → 사용법 보기</span>
+          <span>+ 다른 기능 : 실시간 채팅 · 모의 타이머</span>
+        </div>
+      </div>
+
+      <div class="guide-footer">
+        <button type="button" class="guide-today-btn" id="guideHideToday">오늘 하루 안 보기</button>
+        <button type="button" class="guide-close-btn" id="guideClose" autofocus>MODU SUNEUNG · 시작하기</button>
+      </div>
+    </div>
   </dialog>
 
   <!-- Script map: core (config/utils/state/clock) -> capture (canvas PNG export) -> board (messages/layout/sync) -> chat (22 rooms) -> timer (7 sections) -->
